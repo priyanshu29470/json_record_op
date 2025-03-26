@@ -2,6 +2,9 @@ package com.assignment.json_operator.models;
 
 import java.util.UUID;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
 import jakarta.persistence.Entity;
@@ -27,5 +30,6 @@ public class Dataset {
 
     private String datasetName;
     
+    @JdbcTypeCode(SqlTypes.JSON)
     private JsonNode jsonData;
 }
