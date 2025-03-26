@@ -75,6 +75,9 @@ public class JsonOperatorService {
     }
 
     private ResponseEntity<Object> sortByField(List<JsonNode> records, String sortBy, String order) {
+        if (records.stream().noneMatch(record -> record.has(sortBy))) {
+            throw new InvalidRequestException("Sort field does not exist");
+        }
         List<JsonNode> sortedRecords = records.stream()
                 .sorted((a, b) -> {
                     if (!a.has(sortBy) || !b.has(sortBy)) return 0;
