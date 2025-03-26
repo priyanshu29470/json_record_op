@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: json_repo_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: json_repo_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5302:5432"
+    volumes:
+      - json_repo_data:/var/lib/postgresql/data
+
+volumes:
+  json_repo_data:
