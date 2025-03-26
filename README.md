@@ -79,21 +79,42 @@ The API allows inserting and querying JSON records for a specified dataset.
   - `groupBy` (optional) - Attribute to group records by.
   - `sortBy` (optional) - Attribute to sort records by.
   - `order` (default: `asc`) - Sorting order (`asc` or `desc`).
+  - **Note:** `groupBy` and `sortBy` cannot be used together; only one can be specified per request.
+
+#### Query API with Group-By
 - **Example Request:**
   ```sh
-  GET /api/dataset/customers/query?groupBy=city&sortBy=age&order=desc
+  GET /api/dataset/employees/query?groupBy=department
   ```
 - **Response Example:**
   ```json
   {
-    "New York": [
-      { "name": "Alice", "age": 32 },
-      { "name": "John Doe", "age": 30 }
+    "groupedRecords": {
+      "Engineering": [
+        { "id": 1, "name": "John Doe", "age": 30, "department": "Engineering" },
+        { "id": 2, "name": "Jane Smith", "age": 25, "department": "Engineering" }
+      ],
+      "Marketing": [
+        { "id": 3, "name": "Alice Brown", "age": 28, "department": "Marketing" }
+      ]
+    }
+  }
+  ```
+
+#### Query API with Sort-By
+- **Example Request:**
+  ```sh
+  GET /api/dataset/employees/query?sortBy=age&order=asc
+  ```
+- **Response Example:**
+  ```json
+  {
+    "sortedRecords": [
+      { "id": 2, "name": "Jane Smith", "age": 25, "department": "Engineering" },
+      { "id": 3, "name": "Alice Brown", "age": 28, "department": "Marketing" },
+      { "id": 1, "name": "John Doe", "age": 30, "department": "Engineering" }
     ]
   }
   ```
-- **Postman Usage:**
-  - Select **GET** method.
-  - Enter URL: `http://localhost:8080/api/dataset/customers/query?sortBy=age&order=desc`
 
 
